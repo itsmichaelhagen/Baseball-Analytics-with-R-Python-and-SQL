@@ -50,6 +50,13 @@ create_pbp <- function() {
   doublea_pbp <<- data.frame()
 }
 
+load_pbp_csv <- function() {
+  setwd("~/Documents/Data Analytics/Baseball-Analytics-with-R-Python-and-SQL")
+  majorleague_pbp <<- read.csv("CSV/mlb_pbp.csv", header = TRUE, sep = ",")
+  triplea_pbp <<- read.csv("CSV/triplea_pbp.csv", header = TRUE, sep = ",")
+  doublea_pbp <<- read.csv("CSV/doublea_pbp.csv", header = TRUE, sep = ",")
+}
+
 fetch_mlb_pbp <- function() {
   for (i in mlb_gameids_yesterday) {
     majorleague_pbp <<- bind_rows(majorleague_pbp, mlb_pbp(i))
@@ -74,6 +81,7 @@ setup_pbp <- function() {
   filter_finalized()
   drop_postponed()
   drop_cancelled()
+  load_pbp_csv()
 }
 
 prepare_exports <- function() {
@@ -83,14 +91,12 @@ prepare_exports <- function() {
 }
 
 export_pbp <- function() {
-  write.csv(mlb_pbp_export, file="Downloads/mlb_pbp.csv")
-  write.csv(triplea_pbp_export, file="Downloads/triplea_pbp.csv")
-  write.csv(doublea_pbp_export, file="Downloads/doublea_pbp.csv")
+  write.csv(mlb_pbp_export, file="CSV/mlb_pbp.csv")
+  write.csv(triplea_pbp_export, file="CSV/triplea_pbp.csv")
+  write.csv(doublea_pbp_export, file="CSV/doublea_pbp.csv")
 }
 
 setup_pbp()
-
-create_pbp()
 
 yesterday_games(d = "2024-07-21")
 

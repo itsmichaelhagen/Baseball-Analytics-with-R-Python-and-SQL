@@ -4,9 +4,14 @@ library(tidyr)
 
 #Hit probability using available pbp data
 
-## Add a function that imports pbp data from csv file as "pbp_data_import"
+load_csv <- function() {
+  setwd("~/Documents/Data Analytics/Baseball-Analytics-with-R-Python-and-SQL")
+  pbp_data_import <<- read.csv("CSV/mlb_pbp.csv", header = TRUE, sep = ",")
+}
 
-hit_probability <- pbp_data_import[ , c(48, 126:128)]
+load_csv()
+
+hit_probability <- pbp_data_import[ , c(49, 127:129)]
 hit_probability <- na.omit(hit_probability)
 
 hit_probability$result.event <- as.character(hit_probability$result.event)
