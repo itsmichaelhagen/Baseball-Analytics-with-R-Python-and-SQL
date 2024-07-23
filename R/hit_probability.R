@@ -38,3 +38,21 @@ plot(hit_probability)
 
 multiple.regression <- lm(result.event ~ hitData.launchSpeed + hitData.launchAngle + hitData.totalDistance, data=hit_probability)
 summary(multiple.regression)
+
+# Predict Hit Probability based on ExitVelo, LaunchAngle, and HitDistance
+
+intr <- multiple.regression[["coefficients"]][["(Intercept)"]]
+x1 <- multiple.regression[["coefficients"]][["hitData.launchSpeed"]]
+x2 <- multiple.regression[["coefficients"]][["hitData.launchAngle"]]
+x3 <- multiple.regression[["coefficients"]][["hitData.totalDistance"]]
+
+hitProbability <- function(e, l, d) {
+  xHit <<- (intr + x1*e + x2*l + x3*d)
+  xHit
+}
+
+hitProbability(104, 12, 290)
+hitProbability(73, 52, 145)
+hitProbability(92, 83, 310)
+hitProbability(56, 3, 87)
+hitProbability(88, -20, 114)
