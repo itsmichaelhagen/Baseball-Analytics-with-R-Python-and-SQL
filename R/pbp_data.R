@@ -38,10 +38,10 @@ yesterday_games <- function(d) {
   yesterday_doublea_games_pbp <<- doublea_completedgames[(doublea_completedgames$date %in% d),]
 }
 
-find_gameids <- function() {
-  mlb_gameids <<- as.vector(yesterday_mlb_games_pbp$game_pk)
-  triplea_gameids <<- as.vector(yesterday_triplea_games_pbp$game_pk)
-  doublea_gameids <<- as.vector(yesterday_doublea_games_pbp$game_pk)
+find_gameids_yesterday <- function() {
+  mlb_gameids_yesterday <<- as.vector(yesterday_mlb_games_pbp$game_pk)
+  triplea_gameids_yesterday <<- as.vector(yesterday_triplea_games_pbp$game_pk)
+  doublea_gameids_yesterday <<- as.vector(yesterday_doublea_games_pbp$game_pk)
 }
 
 create_pbp <- function() {
@@ -51,19 +51,19 @@ create_pbp <- function() {
 }
 
 fetch_mlb_pbp <- function() {
-  for (i in mlb_gameids) {
+  for (i in mlb_gameids_yesterday) {
     majorleague_pbp <<- bind_rows(majorleague_pbp, mlb_pbp(i))
   }
 }
 
 fetch_triplea_pbp <- function() {
-  for (i in triplea_gameids) {
+  for (i in triplea_gameids_yesterday) {
     triplea_pbp <<- bind_rows(triplea_pbp, mlb_pbp(i))
   }
 }
 
 fetch_doublea_pbp <- function() {
-  for (i in doublea_gameids) {
+  for (i in doublea_gameids_yesterday) {
     doublea_pbp <<- bind_rows(doublea_pbp, mlb_pbp(i))
   }
 }
@@ -94,7 +94,7 @@ create_pbp()
 
 yesterday_games(d = "2024-07-21")
 
-find_gameids()
+find_gameids_yesterday()
 
 fetch_mlb_pbp()
 fetch_triplea_pbp()
