@@ -4,15 +4,23 @@ library(tidyr)
 
 #Hit probability using available pbp data
 
-load_csv <- function() {
-  setwd("~/Documents/Data Analytics/Baseball-Analytics-with-R-Python-and-SQL")
-  pbp_data_import <<- read.csv("CSV/mlb_pbp.csv", header = TRUE, sep = ",")
+load("data/pbp.Rdata")
+
+chooseData <- function(level) {
+  if (level == 1) {
+    hit_probability <<- majorleague_pbp[ , c(48, 126:128)]
+    hit_probability <<- na.omit(hit_probability)
+  } else if (level == 11) {
+    hit_probability <<- triplea_pbp[ , c(48, 126:128)]
+    hit_probability <<- na.omit(hit_probability)
+  } else {
+    print("Invalid input for data. Enter a valid level. [1: Major League PBP][11: Triple-A PBP]")
+  }
 }
 
-load_csv()
 
-hit_probability <- pbp_data_import[ , c(49, 127:129)]
-hit_probability <- na.omit(hit_probability)
+# Select DataSet: 1 (Major League Data), 11 (Triple-A Data)
+chooseData(1)
 
 hit_probability$result.event <- as.character(hit_probability$result.event)
 
