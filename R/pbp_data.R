@@ -75,6 +75,21 @@ fetch_doublea_pbp <- function() {
   }
 }
 
+fetch_pbp <- function() {
+  print("Load MLB Pitch-by-Pitch...")
+  fetch_mlb_pbp()
+  print("Done!")
+  print("Load Triple-A Pitch-by-Pitch...")
+  fetch_triplea_pbp()
+  print("Done!")
+  print("Load Double-A Pitch-by-Pitch...")
+  fetch_doublea_pbp()
+  print("Finished!")
+  majorleague_pbp <<- majorleague_pbp[order(majorleague_pbp$game_date),]
+  triplea_pbp <<- triplea_pbp[order(triplea_pbp$game_date),]
+  doublea_pbp <<- doublea_pbp[order(doublea_pbp$game_date),]
+}
+
 setup_pbp <- function() {
   load_schedules()
   load_completedgames()
@@ -101,19 +116,21 @@ export_pbp <- function() {
   write.csv(doublea_pbp_export, file="data/doublea_pbp.csv")
 }
 
+#Working Directory
 setwd("~/Documents/Data Analytics/Baseball-Analytics-with-R-Python-and-SQL")
 
+#Setup Data (Schedules, Finished Games, etc.)
 setup_pbp()
 
 #Load stored pitch-by-pitch data
 load("data/pbp.Rdata")
 
-yesterday_games(d = "2024-07-21")
-
+#Pull pitch-by-pitch information from date
+yesterday_games(d = "2024-07-24")
 find_gameids_yesterday()
 
-fetch_mlb_pbp()
-fetch_triplea_pbp()
-fetch_doublea_pbp()
+#Fetch pitch-by-pitch data using gameids
+fetch_pbp()
 
+#Save data
 save_data()

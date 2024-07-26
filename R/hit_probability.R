@@ -2,6 +2,9 @@ library(baseballr)
 library(dplyr)
 library(tidyr)
 
+#Working Directory
+setwd("~/Documents/Data Analytics/Baseball-Analytics-with-R-Python-and-SQL")
+
 #Hit probability using available pbp data
 
 load("data/pbp.Rdata")
@@ -20,7 +23,7 @@ chooseData <- function(level) {
 
 
 # Select DataSet: 1 (Major League Data), 11 (Triple-A Data)
-chooseData(1)
+chooseData(11)
 
 hit_probability$result.event <- as.character(hit_probability$result.event)
 
@@ -64,3 +67,11 @@ hitProbability(73, 52, 145)
 hitProbability(92, 83, 310)
 hitProbability(56, 3, 87)
 hitProbability(88, -20, 114)
+
+#Finding Hit Probability Average
+
+veloAvg <- mean(hit_probability$hitData.launchSpeed)
+angleAvg <- mean(hit_probability$hitData.launchAngle)
+distAvg <- mean(hit_probability$hitData.totalDistance)
+
+hitProbability(veloAvg, angleAvg, distAvg)
