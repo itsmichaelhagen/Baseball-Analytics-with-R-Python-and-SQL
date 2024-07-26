@@ -4,7 +4,7 @@ library(tidyr)
 library(forecast)
 library(ggplot2)
 
-# SIMPLE LINEAR REGRESSION MODEL ANALYSIS OF NEXT 6 GAMES - HITTER FORECAST
+# SIMPLE LINEAR REGRESSION MODEL ANALYSIS OF PAST WEEK GAMES - HITTER FORECAST
 ## Still needs a lot of work
 
 #Working Directory
@@ -21,16 +21,16 @@ getRoster <- function (t) {
   currentRoster <<- mlb_rosters(team_id = t, season = 2024, roster_type = 'active')
 }
 
-getRoster(112)
+getRoster(134)
 
 #Select Player from currentRoster (use "person_id")
-## Dansby Swanson: 621020
+## Oneil Cruz: 665833
 
 selectPlayer <- function(id) {
   p <<- id
 }
 
-selectPlayer(621020)
+selectPlayer(665833)
 
 #Load PBP to find games played in
 load("data/pbp.Rdata")
@@ -52,17 +52,17 @@ fetch_player_stats <- function() {
   batter_stats <<- batter_stats[(batter_stats$group %in% "hitting"),]
   
   hitter_forecast <<- data.frame(
-    game = c(1,2,3,4,5,6),
+    game = c(1,2,3,4,5,6,7 ),
     ba = (batter_stats$hits)/(batter_stats$at_bats)
   )
   
-  nwd <<- data.frame(game = c(7,8,9,10,11,12))
+  nwd <<- data.frame(game = c(8,9,10,11,12,13,14))
 }
 
 fetch_player_stats()
 
 my_linear_model <- lm(ba~game, data = hitter_forecast)
 
-my_forecast <- forecast(my_linear_model, nwd)
+my_forecast <- forecast(my_linear_model, nwd, lambda = 0)
 
 autoplot(my_forecast)
