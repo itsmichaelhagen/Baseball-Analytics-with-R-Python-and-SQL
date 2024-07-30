@@ -23,7 +23,7 @@ chooseData <- function(level) {
 
 
 # Select DataSet: 1 (Major League Data), 11 (Triple-A Data)
-chooseData(11)
+chooseData(1)
 
 hit_probability$result.event <- as.character(hit_probability$result.event)
 

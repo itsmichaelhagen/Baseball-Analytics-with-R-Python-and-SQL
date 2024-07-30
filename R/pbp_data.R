@@ -106,7 +106,7 @@ prepare_exports <- function() {
 
 save_data <- function () {
   setwd("~/Documents/Data Analytics/Baseball-Analytics-with-R-Python-and-SQL")
-  save(majorleague_pbp, triplea_pbp, doublea_pbp, file="data/pbp.Rdata")
+  save(majorleague_pbp, triplea_pbp, doublea_pbp, players, mlb_completedgames, triplea_completedgames, doublea_completedgames, file="data/pbp.Rdata")
 }
 
 export_pbp <- function() {
@@ -126,7 +126,7 @@ setup_pbp()
 load("data/pbp.Rdata")
 
 #Pull pitch-by-pitch information from date
-yesterday_games(d = "2024-07-24")
+yesterday_games(d = "2024-06-23")
 find_gameids_yesterday()
 
 #Fetch pitch-by-pitch data using gameids
